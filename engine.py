@@ -24,7 +24,18 @@ import numpy as np
 from timm.utils import accuracy
 from timm.optim import create_optimizer
 
+from tqdm import tqdm
+
 import utils
+
+###START --- aghinea
+from argparse import Namespace
+
+try:
+    import wandb
+except ImportError:
+    wandb = None
+###END   --- aghinea
 
 def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer,
@@ -136,8 +147,14 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
 
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
-    print('* Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'
-          .format(top1=metric_logger.meters['Acc@1'], top5=metric_logger.meters['Acc@5'], losses=metric_logger.meters['Loss']))
+
+    str = '* Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'
+          .format(top1=metric_logger.meters['Acc@1'], top5=metric_logger.meters['Acc@5'], losses=metric_logger.meters['Loss'])
+    print(str)
+
+    ###START --- aghinea
+    wandb.log(str)
+    ###END   --- aghinea
 
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
 
@@ -162,6 +179,11 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
     diagonal = np.diag(acc_matrix)
 
     result_str = "[Average accuracy till task{}]\tAcc@1: {:.4f}\tAcc@5: {:.4f}\tLoss: {:.4f}".format(task_id+1, avg_stat[0], avg_stat[1], avg_stat[2])
+    
+    ###START --- aghinea
+    wandb.log(result_str)
+    ###END   --- aghinea
+                      
     if task_id > 0:
         forgetting = np.mean((np.max(acc_matrix, axis=1) -
                             acc_matrix[:, task_id])[:task_id])
@@ -174,7 +196,7 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 
 def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
-                    class_mask=None, args = None,):
+                    class_mask=None, args: Namespace):
 
     # create matrix to save end-of-task accuracies 
     acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
@@ -227,8 +249,12 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
         # Create new optimizer for each task to clear optimizer status
         if task_id > 0 and args.reinit_optimizer:
             optimizer = create_optimizer(args, model)
-        
-        for epoch in range(args.epochs):            
+
+        ###START --- aghinea
+        wandb.init(dir='/home/aghinea/tmp/', project='split-cifar10_l2p', entity=continual_benchmarks_team, config=vars(args))
+        args.wandb_url = wandb.run.get_url()
+        ###END   --- aghinea
+        for epoch in tqdm(range(args.epochs)):            
             train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion, 
                                         data_loader=data_loader[task_id]['train'], optimizer=optimizer, 
                                         device=device, epoch=epoch, max_norm=args.clip_grad, 
@@ -253,7 +279,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
                 state_dict['lr_scheduler'] = lr_scheduler.state_dict()
             
             utils.save_on_master(state_dict, checkpoint_path)
-
+        """
         log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
             **{f'test_{k}': v for k, v in test_stats.items()},
             'epoch': epoch,}
@@ -261,3 +287,4 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
         if args.output_dir and utils.is_main_process():
             with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
                 f.write(json.dumps(log_stats) + '\n')
+        """
