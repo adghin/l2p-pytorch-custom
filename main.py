@@ -137,7 +137,7 @@ def main(args):
 
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
-    """
+    
     if args.nowand == 0:
         if args.dataset == 'Split-CIFAR10':
             project = 'continual_cifar10_l2p'
@@ -148,7 +148,7 @@ def main(args):
         
         wandb.init(dir='/home/aghinea/tmp/', project=project, entity=continual_benchmarks_team, config=vars(args))
         args.wandb_url = wandb.run.get_url()
-    """
+    
         
     train_and_evaluate(model, model_without_ddp, original_model,
                     criterion, data_loader, optimizer, lr_scheduler,
@@ -158,10 +158,10 @@ def main(args):
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
     print(f"Total training time: {total_time_str}")
 
-    """
+    
     wandb.log(total_time_str)
     wandb.finish()
-    """
+    
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
