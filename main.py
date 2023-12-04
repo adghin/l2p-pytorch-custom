@@ -29,6 +29,11 @@ import utils
 import warnings
 warnings.filterwarnings('ignore', 'Argument interpolation should be of type InterpolationMode instead of int')
 
+try:
+    import wandb
+except ImportError:
+    wandb = None
+
 def main(args):
     utils.init_distributed_mode(args)
 
@@ -132,6 +137,17 @@ def main(args):
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
 
+    if args.nowand == 0:
+        if args.dataset == 'Split-CIFAR10':
+            project = 'continual_cifar10_l2p'
+        elif args.dataset == 'Split-CIFAR100':
+            project = 'continual_cifar100_l2p'
+        elif args.dataset == 'Split-TinyImagenet:
+            project = 'continual_tinyimagenet_l2p'
+        
+        wandb.init(dir='/home/aghinea/tmp/', project=project, entity=continual_benchmarks_team, config=vars(args))
+        args.wandb_url = wandb.run.get_url()
+        
     train_and_evaluate(model, model_without_ddp, original_model,
                     criterion, data_loader, optimizer, lr_scheduler,
                     device, class_mask, args)
@@ -139,6 +155,9 @@ def main(args):
     total_time = time.time() - start_time
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
     print(f"Total training time: {total_time_str}")
+
+    wandb.log(total_time_str)
+    wandb.finish()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
