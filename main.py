@@ -155,6 +155,9 @@ if __name__ == '__main__':
     elif config == 'five_datasets_l2p':
         from configs.five_datasets_l2p import get_args_parser
         config_parser = subparser.add_parser('five_datasets_l2p', help='5-Datasets L2P configs')
+    elif config == 'tinyimgnet_l2p':
+        from configs.tinyimgnet_l2p import get_args_parser
+        config_parser = subparser.add_parser('tinyimgnet_l2p', help='Split-TinyImagenet L2P configs')
     else:
         raise NotImplementedError
     
