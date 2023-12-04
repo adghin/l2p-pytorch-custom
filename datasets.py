@@ -38,7 +38,6 @@ def build_continual_dataloader(args):
     transform_val = build_transform(False, args)
 
     if args.dataset.startswith('Split-'):
-        print("ciao1")
         dataset_train, dataset_val = get_dataset(args.dataset.replace('Split-',''), transform_train, transform_val, args)
 
         args.nb_classes = len(dataset_val.classes)
@@ -46,10 +45,8 @@ def build_continual_dataloader(args):
         splited_dataset, class_mask = split_single_dataset(dataset_train, dataset_val, args)
     else:
         if args.dataset == '5-datasets':
-            print("ciao2")
             dataset_list = ['SVHN', 'MNIST', 'CIFAR10', 'NotMNIST', 'FashionMNIST']
         else:
-            print("ciao3")
             dataset_list = args.dataset.split(',')
         
         if args.shuffle:
