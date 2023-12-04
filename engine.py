@@ -195,7 +195,7 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 
 def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
-                    class_mask=None, args):
+                    class_mask=None, args=args):
 
     # create matrix to save end-of-task accuracies 
     acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
