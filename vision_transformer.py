@@ -800,7 +800,7 @@ def vit_base_patch32_384(pretrained=False, **kwargs):
     model = _create_vision_transformer('vit_base_patch32_384', pretrained=pretrained, **model_kwargs)
     return model
 
-
+@register_model
 def vit_base_patch16_224(pretrained=False, **kwargs):
     """ ViT-Base (ViT-B/16) from original paper (https://arxiv.org/abs/2010.11929).
     ImageNet-1k weights fine-tuned from in21k @ 224x224, source https://github.com/google-research/vision_transformer.
