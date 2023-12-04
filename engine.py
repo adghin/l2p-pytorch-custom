@@ -279,6 +279,8 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
                 state_dict['lr_scheduler'] = lr_scheduler.state_dict()
             
             utils.save_on_master(state_dict, checkpoint_path)
+
+        wandb.finish()
         """
         log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
             **{f'test_{k}': v for k, v in test_stats.items()},
