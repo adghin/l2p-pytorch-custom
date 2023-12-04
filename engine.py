@@ -148,8 +148,7 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
 
-    str = '* Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'
-          .format(top1=metric_logger.meters['Acc@1'], top5=metric_logger.meters['Acc@5'], losses=metric_logger.meters['Loss'])
+    str = '* Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'.format(top1=metric_logger.meters['Acc@1'], top5=metric_logger.meters['Acc@5'], losses=metric_logger.meters['Loss'])
     print(str)
 
     ###START --- aghinea
