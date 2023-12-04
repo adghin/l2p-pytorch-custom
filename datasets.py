@@ -158,8 +158,10 @@ def get_dataset(dataset, transform_train, transform_val, args,):
 
 def split_single_dataset(dataset_train, dataset_val, args):
     nb_classes = len(dataset_val.classes)
+    print("nb_classes: " + str(nb_classes))
     assert nb_classes % args.num_tasks == 0
     classes_per_task = nb_classes // args.num_tasks
+    print("classes_per_task: " + str(classes_per_task))
 
     labels = [i for i in range(nb_classes)]
     
