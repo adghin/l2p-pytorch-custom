@@ -195,9 +195,7 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 
 def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
-                    class_mask, args):
-
-    class_mask = None
+                    class_mask=None, args = None,):
 
     # create matrix to save end-of-task accuracies 
     acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
@@ -251,11 +249,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
         if task_id > 0 and args.reinit_optimizer:
             optimizer = create_optimizer(args, model)
 
-        ###START --- aghinea
-        #wandb.init(dir='/home/aghinea/tmp/', project='split-cifar10_l2p', entity=continual_benchmarks_team, config=vars(args))
-        #args.wandb_url = wandb.run.get_url()
-        ###END   --- aghinea
-        for epoch in tqdm(range(args.epochs)):            
+        for epoch in range(args.epochs):            
             train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion, 
                                         data_loader=data_loader[task_id]['train'], optimizer=optimizer, 
                                         device=device, epoch=epoch, max_norm=args.clip_grad, 
@@ -281,8 +275,6 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
             
             utils.save_on_master(state_dict, checkpoint_path)
 
-        #wandb.finish()
-        
         log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
             **{f'test_{k}': v for k, v in test_stats.items()},
             'epoch': epoch,}
