@@ -168,20 +168,18 @@ if __name__ == '__main__':
     print(parser)
     config = parser.parse_known_args()
 
-    conf = config[-1][0]
-
     subparser = parser.add_subparsers(dest='subparser_name')
 
-    if conf == 'cifar100_l2p':
+    if config == 'cifar100_l2p':
         from configs.cifar100_l2p import get_args_parser
         config_parser = subparser.add_parser('cifar100_l2p', help='Split-CIFAR100 L2P configs')
-    elif conf == 'cifar10_l2p':
+    elif config == 'cifar10_l2p':
         from configs.cifar10_l2p import get_args_parser
         config_parser = subparser.add_parser('cifar10_l2p', help='Split-CIFAR10 L2P configs')
-    elif conf == 'five_datasets_l2p':
+    elif config == 'five_datasets_l2p':
         from configs.five_datasets_l2p import get_args_parser
         config_parser = subparser.add_parser('five_datasets_l2p', help='5-Datasets L2P configs')
-    elif conf == 'tinyimgnet_l2p':
+    elif config == 'tinyimgnet_l2p':
         from configs.tinyimgnet_l2p import get_args_parser
         config_parser = subparser.add_parser('tinyimgnet_l2p', help='Split-TinyImagenet L2P configs')
     else:
