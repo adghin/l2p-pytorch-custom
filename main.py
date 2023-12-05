@@ -143,7 +143,7 @@ def main(args):
         elif args.dataset == 'Split-TinyImagenet':
             project = 'continual_tinyimagenet_l2p'
         
-        wandb.init(dir='/home/aghinea/tmp/', project=project, entity=continual_benchmarks_team, config=vars(args))
+        wandb.init(dir='/home/aghinea/tmp/', project=project, entity='continual_benchmarks_team', config=vars(args))
         args.wandb_url = wandb.run.get_url()
     
         
