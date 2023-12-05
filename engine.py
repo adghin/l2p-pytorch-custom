@@ -187,8 +187,9 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 
         result_str += "\tForgetting: {:.4f}\tBackward: {:.4f}".format(forgetting, backward)
         forg_back   = {'Forgetting': forgetting, 'Backward': backward}
+        wandb.log(forg_back)
     print(result_str)
-    wandb.log(forg_back)
+   
 
     return test_stats
 
