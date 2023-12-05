@@ -166,7 +166,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
     print(parser)
-    config = parser.parse_known_args()[-1][0]
+    config = parser.parse_known_args()
 
     print("con" + config)
 
