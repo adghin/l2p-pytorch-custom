@@ -150,12 +150,7 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
 
     str = '* Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'.format(top1=metric_logger.meters['Acc@1'], top5=metric_logger.meters['Acc@5'], losses=metric_logger.meters['Loss'])
     print(str)
-    to_log = {str}
-
-    ###START --- aghinea
-    wandb.log(to_log)
-    ###END   --- aghinea
-
+   
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
 
 
@@ -179,7 +174,7 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
     diagonal = np.diag(acc_matrix)
 
     result_str = "[Average accuracy till task{}]\tAcc@1: {:.4f}\tAcc@5: {:.4f}\tLoss: {:.4f}".format(task_id+1, avg_stat[0], avg_stat[1], avg_stat[2])
-    to_log = {result_str}
+    to_log = {'Avg.acc_till_last_task@1': avg_stat[0], 'Avg.acc_till_last_task@5': avg_stat[1], 'Loss':  avg_stat[2]}
                         
     ###START --- aghinea
     wandb.log(to_log)
