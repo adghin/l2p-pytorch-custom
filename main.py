@@ -187,7 +187,7 @@ if __name__ == '__main__':
     else:
         raise NotImplementedError
     
-    get_args_parser(config_parser)
+    print(get_args_parser(config_parser))
 
     args = parser.parse_args()
     print(args)
