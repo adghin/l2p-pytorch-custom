@@ -186,7 +186,9 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
         backward = np.mean((acc_matrix[:, task_id] - diagonal)[:task_id])
 
         result_str += "\tForgetting: {:.4f}\tBackward: {:.4f}".format(forgetting, backward)
+        forg_back   = {'Forgetting': forgetting, 'Backward': backward}
     print(result_str)
+    wandb.log(forg_back)
 
     return test_stats
 
