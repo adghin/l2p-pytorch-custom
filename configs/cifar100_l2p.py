@@ -98,3 +98,6 @@ def get_args_parser(subparsers):
 
     # Misc parameters
     subparsers.add_argument('--print_freq', type=int, default=10, help = 'The frequency of printing')
+
+    #Wandb
+    subparsers.add_argument('--nowand',type=int, default=1, help='Log to wandb')
