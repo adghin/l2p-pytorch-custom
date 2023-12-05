@@ -168,7 +168,7 @@ if __name__ == '__main__':
     print(parser)
     config = parser.parse_known_args()[-1][0]
 
-    print(config)
+    print("con" + config)
 
     subparser = parser.add_subparsers(dest='subparser_name')
 
@@ -187,7 +187,7 @@ if __name__ == '__main__':
     else:
         raise NotImplementedError
     
-    print(get_args_parser(config_parser))
+    get_args_parser(config_parser)
 
     args = parser.parse_args()
     print(args)
