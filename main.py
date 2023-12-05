@@ -168,7 +168,7 @@ if __name__ == '__main__':
     print(parser)
     config = parser.parse_known_args()
 
-    print("con" + config)
+    print(config)
 
     subparser = parser.add_subparsers(dest='subparser_name')
 
