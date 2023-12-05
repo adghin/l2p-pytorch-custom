@@ -35,7 +35,6 @@ except ImportError:
     wandb = None
 
 def main(args):
-    print(args)
     utils.init_distributed_mode(args)
 
     device = torch.device(args.device)
@@ -92,8 +91,6 @@ def main(args):
         for n, p in model.named_parameters():
             if n.startswith(tuple(args.freeze)):
                 p.requires_grad = False
-
-    print(args)
 
     if args.eval:
         acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
@@ -165,7 +162,6 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
-    print(parser)
     config = parser.parse_known_args()[-1][0]
 
     subparser = parser.add_subparsers(dest='subparser_name')
@@ -188,7 +184,6 @@ if __name__ == '__main__':
     get_args_parser(config_parser)
 
     args = parser.parse_args()
-    print(args)
 
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
