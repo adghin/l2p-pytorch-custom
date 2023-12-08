@@ -45,7 +45,7 @@ from prompt import Prompt
 _logger = logging.getLogger(__name__)
 
 
-def _cfg(url='', num_classes, **kwargs):
+def _cfg(url,num_classes, **kwargs):
     return {
         'url': url,
         'num_classes': num_classes, 'input_size': (3, 224, 224), 'pool_size': None,
