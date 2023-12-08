@@ -85,6 +85,8 @@ def main(args):
     original_model.to(device)
     model.to(device)  
 
+    print(model)
+
     if args.freeze:
         # all parameters are frozen for original vit model
         for p in original_model.parameters():
