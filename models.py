@@ -11,7 +11,7 @@ from timm.models.registry import register_model
 from vision_transformer import _create_vision_transformer
 
 __all__ = [
-    'vit_tiny_patch16_224', 'vit_small_patch16_224', 'vit_base_patch16_224',
+    'vit_tiny_patch16_224', 'vit_small_patch16_224', 'vit_base_patch16_224', 'vit_base_patch16_224_in21k'
 ]
 
 @register_model
