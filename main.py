@@ -49,6 +49,8 @@ def main(args):
 
     data_loader, class_mask = build_continual_dataloader(args)
 
+    print(args.model)
+
     print(f"Creating original model: {args.model}")
     original_model = create_model(
         args.model,
