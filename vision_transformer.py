@@ -48,7 +48,7 @@ _logger = logging.getLogger(__name__)
 def _cfg(url='', **kwargs):
     return {
         'url': url,
-        'num_classes': 1000, 'input_size': (3, 224, 224), 'pool_size': None,
+        'num_classes': 21843, 'input_size': (3, 224, 224), 'pool_size': None,
         'crop_pct': .9, 'interpolation': 'bicubic', 'fixed_input_size': True,
         'mean': IMAGENET_INCEPTION_MEAN, 'std': IMAGENET_INCEPTION_STD,
         'first_conv': 'patch_embed.proj', 'classifier': 'head',
