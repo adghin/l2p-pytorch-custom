@@ -147,6 +147,8 @@ def main(args):
             project = 'continual_cifar100_l2p'
         elif args.dataset == 'Split-TinyImagenet':
             project = 'continual_tinyimagenet_l2p'
+        elif args.dataset == 'Split-Imagenet-R':
+            project = 'continual_imagenet-r_l2p'
         
         wandb.init(dir='/home/aghinea/tmp/', project=project, entity='continual_benchmarks_team', config=vars(args))
         args.wandb_url = wandb.run.get_url()
@@ -183,6 +185,9 @@ if __name__ == '__main__':
     elif config == 'tinyimgnet_l2p':
         from configs.tinyimgnet_l2p import get_args_parser
         config_parser = subparser.add_parser('tinyimgnet_l2p', help='Split-TinyImagenet L2P configs')
+    elif config == 'imagenet-r_l2p':
+        from config.imagenet-r_l2p import get_args_parser
+        config_parser = subparser.add_parser('imagenet-r_l2p', help='Split-Imagenet-R L2P configs')
     else:
         raise NotImplementedError
     
