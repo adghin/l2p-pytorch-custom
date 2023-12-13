@@ -52,11 +52,16 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
     metric_logger.add_meter('Lr', utils.SmoothedValue(window_size=1, fmt='{value:.6f}'))
     metric_logger.add_meter('Loss', utils.SmoothedValue(window_size=1, fmt='{value:.4f}'))
     header = f'Train: Epoch[{epoch+1:{int(math.log10(args.epochs))+1}}/{args.epochs}]'
+
+    print(len(data_loader))
     
     for input, target in metric_logger.log_every(data_loader, args.print_freq, header):
+        print(input)
+        print(input.size())
         input = input.to(device, non_blocking=True)
         target = target.to(device, non_blocking=True)
-
+        print(target)
+        print(target.size())
         with torch.no_grad():
             if original_model is not None:
                 output = original_model(input)
