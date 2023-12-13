@@ -100,12 +100,6 @@ def build_continual_dataloader(args):
 
         dataloader.append({'train': data_loader_train, 'val': data_loader_val})
 
-    for image,label in dataloader:
-        print(image.size())
-        print(label.size())
-        print(image)
-        print(label)
-
     return dataloader, class_mask
 
 def get_dataset(dataset, transform_train, transform_val, args,):
