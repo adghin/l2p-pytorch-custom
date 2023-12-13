@@ -49,14 +49,6 @@ def main(args):
 
     data_loader, class_mask = build_continual_dataloader(args)
 
-    for image,label in data_loader:
-        print(image)
-        print(label)
-        print(image.size())
-        print(label)
-
-    print(class_mask)
-
     print(args.model)
     print(args.pretrained)
 
