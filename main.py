@@ -187,7 +187,7 @@ if __name__ == '__main__':
         config_parser = subparser.add_parser('tinyimgnet_l2p', help='Split-TinyImagenet L2P configs')
     elif config == 'imagenetR_l2p':
         from configs.imagenetR_l2p import get_args_parser
-        config_parser = subparser.add_parser('imagenet-r_l2p', help='Split-Imagenet-R L2P configs')
+        config_parser = subparser.add_parser('imagenetR_l2p', help='Split-Imagenet-R L2P configs')
     else:
         raise NotImplementedError
     
