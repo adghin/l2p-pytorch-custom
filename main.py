@@ -24,6 +24,7 @@ from timm.optim import create_optimizer
 from datasets import build_continual_dataloader
 from engine import *
 import models
+import timm
 import utils
 
 import warnings
@@ -53,7 +54,7 @@ def main(args):
     print(args.pretrained)
 
     print(f"Creating original model: {'vit_base_patch16_224.augreg_in1k'}")
-    original_model = create_model(
+    original_model = timm.create_model(
         'vit_base_patch16_224.augreg_in1k',
         pretrained=args.pretrained,
         num_classes=args.nb_classes,
@@ -63,7 +64,7 @@ def main(args):
     )
 
     print(f"Creating model: {'vit_base_patch16_224.augreg_in1k'}")
-    model = create_model(
+    model = timm.create_model(
         'vit_base_patch16_224.augreg_in1k',
         pretrained=args.pretrained,
         num_classes=args.nb_classes,
