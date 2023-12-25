@@ -53,9 +53,9 @@ def main(args):
     print(args.model)
     print(args.pretrained)
 
-    print(f"Creating original model: {'vit_base_patch16_224.augreg_in1k'}")
-    original_model = timm.create_model(
-        'vit_base_patch16_224.augreg_in1k',
+    print(f"Creating original model: {args.model}")
+    original_model = create_model(
+        args.model,
         pretrained=args.pretrained,
         num_classes=args.nb_classes,
         drop_rate=args.drop,
@@ -63,9 +63,9 @@ def main(args):
         drop_block_rate=None,
     )
 
-    print(f"Creating model: {'vit_base_patch16_224.augreg_in1k'}")
-    model = timm.create_model(
-        'vit_base_patch16_224.augreg_in1k',
+    print(f"Creating model: {args.model}")
+    model = create_model(
+        args.model,
         pretrained=args.pretrained,
         num_classes=args.nb_classes,
         drop_rate=args.drop,
