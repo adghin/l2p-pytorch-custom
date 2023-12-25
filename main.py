@@ -52,9 +52,9 @@ def main(args):
     print(args.model)
     print(args.pretrained)
 
-    print(f"Creating original model: {args.model}")
+    print(f"Creating original model: {'vit_base_patch16_224.augreg_in1k'}")
     original_model = create_model(
-        args.model,
+        'vit_base_patch16_224.augreg_in1k',
         pretrained=args.pretrained,
         num_classes=args.nb_classes,
         drop_rate=args.drop,
@@ -62,9 +62,9 @@ def main(args):
         drop_block_rate=None,
     )
 
-    print(f"Creating model: {args.model}")
+    print(f"Creating model: {'vit_base_patch16_224.augreg_in1k'}")
     model = create_model(
-        args.model,
+        'vit_base_patch16_224.augreg_in1k',
         pretrained=args.pretrained,
         num_classes=args.nb_classes,
         drop_rate=args.drop,
