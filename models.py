@@ -38,8 +38,15 @@ def vit_base_patch16_224(pretrained=False, **kwargs):
     ImageNet-1k weights fine-tuned from in21k @ 224x224, source https://github.com/google-research/vision_transformer.
     """
     model_kwargs = dict(patch_size=16, embed_dim=768, depth=12, num_heads=12, **kwargs)
-    model = _create_vision_transformer('vit_base_patch16_224.sam_in1k', pretrained=pretrained, **model_kwargs)
-    #model = _create_vision_transformer('vit_base_patch16_224.augreg_in1k', pretrained=pretrained, **model_kwargs)
+    model = _create_vision_transformer('vit_base_patch16_224', pretrained=pretrained, **model_kwargs)
+    return model
+
+@register_model
+def vit_base_patch16_224_sam(pretrained=False, **kwargs):
+    """ ViT-Base (ViT-B/16) w/ SAM pretrained weights. Paper: https://arxiv.org/abs/2106.01548
+    """
+    model_kwargs = dict(patch_size=16, embed_dim=768, depth=12, num_heads=12, **kwargs)
+    model = _create_vision_transformer('vit_base_patch16_224_sam', pretrained=pretrained, **model_kwargs)
     return model
 
 @register_model
