@@ -2,7 +2,7 @@ import argparse
 
 def get_args_parser(subparsers):
     subparsers.add_argument('--batch-size', default=16, type=int, help='Batch size per device')
-    subparsers.add_argument('--epochs', default=50, type=int)
+    subparsers.add_argument('--epochs', default=5, type=int)
 
     # Model parameters
     subparsers.add_argument('--model', default='vit_base_patch16_224', type=str, metavar='MODEL', help='Name of model to train')
