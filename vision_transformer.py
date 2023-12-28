@@ -46,7 +46,6 @@ _logger = logging.getLogger(__name__)
 
 
 def _cfg(url='', **kwargs):
-    print(url)
     return {
         'url': url,
         'num_classes': 1000, 'input_size': (3, 224, 224), 'pool_size': None,
