@@ -87,12 +87,12 @@ default_cfgs = {
         url='https://storage.googleapis.com/vit_models/augreg/'
             'B_32-i21k-300ep-lr_0.001-aug_light1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.03-res_384.npz',
         input_size=(3, 384, 384), crop_pct=1.0),
-    # 'vit_base_patch16_224': _cfg(
-    #     url='https://storage.googleapis.com/vit_models/augreg/'
-    #         'B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz'),
-    'vit_base_patch16_224': _cfg(
+     'vit_base_patch16_224': _cfg(
+         url='https://storage.googleapis.com/vit_models/augreg/'
+             'B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz'),
+    #'vit_base_patch16_224': _cfg(
         #url='https://storage.googleapis.com/vit_checkpoints/vit_b_16-c867db91.pth'),
-        url='https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_16.npz'),
+        #url='https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_16.npz'),
         #url='https://storage.googleapis.com/vit_models/augreg/B_16-i1k-300ep-lr_0.001-aug_medium2-wd_0.1-do_0.1-sd_0.1--imagenet2012-steps_20k-lr_0.03-res_224.npz'),
     'vit_base_patch16_384': _cfg(
         url='https://storage.googleapis.com/vit_models/augreg/'
